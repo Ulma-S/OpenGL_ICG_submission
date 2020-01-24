@@ -16,12 +16,12 @@ void DrawScene(void);
 //}Vector3;
 
 //Game State
-enum GameState {
-	START = 0,
-	PLAYING,
-	GAMEOVER,
-	GAMECLEAR,
-};
+//enum GameState {
+//	START = 0,
+//	PLAYING,
+//	GAMEOVER,
+//	GAMECLEAR,
+//};
 
 //-------- object data
 typedef struct {

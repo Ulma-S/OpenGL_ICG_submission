@@ -12,17 +12,12 @@
 
 #include "calc.h"
 #include "player.h"
+#include "game_manager.h"
 
 extern SimDataT simdata;
 extern WindowDataT window;
 
 extern CPlayerObject *player;
-
-extern int bulletCount;
-//extern GameState game_state;
-
-float playerTurn = 0.;
-float playerMove = 0.;
 
 //-------- modifier key status
 bool isShiftKeyDown(void);
@@ -63,15 +58,10 @@ void charKeyDown(unsigned char key, int x, int y)
 		break;
 
 	case 'a': //¶ù‰ñ
-		//simdata.player.x -= 0.05;
 		player->Turn(0.2);
 		player->IsMoving(true);
-		cout << player->Turn() << endl;
 		break;
 	case 's': //Œã‘Þ
-		//simdata.player.z += 0.05;
-		/*simdata.player.move -= playerMove;
-		simdata.player.isMoving = true;*/
 		player->Speed(-0.05);
 		player->IsMoving(true);
 		break;
@@ -80,21 +70,13 @@ void charKeyDown(unsigned char key, int x, int y)
 		player->IsMoving(true);
 		break;
 	case 'w': //‘Oi
-		//simdata.player.z -= 0.05;
 		player->Speed(0.05);
 		player->IsMoving(true);
 		break;
 	case ' ':
-		//simdata.bullet.state = 1; //”­ŽËó‘Ô‚É‘JˆÚ
-		//simdata.bullet.move = 0.2; //’e‘¬Žw’è ¦‘¬‰ß‚¬‚é‚Æ‚·‚è”²‚¯‚Ü‚·
-		//simdata.bullet.position.x = simdata.player.position.x;
-		//simdata.bullet.position.y = simdata.player.position.y + 0.1; //”­ŽË‚‚³’²®
-		//simdata.bullet.position.z = simdata.player.position.z;
-		//simdata.bullet.yaw = simdata.player.yaw; //”­ŽËŽå‘Ì‚Ì•ûŒü‚ð’eŠÛ‚ÉÝ’è
 		player->Attack();
 		break;
 	default:
-		simdata.player.isMoving = false;
 		break;
 	}
 	return;
@@ -188,9 +170,9 @@ void mouseClick(int button, int state, int x, int y)
 	case GLUT_LEFT_BUTTON:
 		switch (state) {
 		case GLUT_DOWN: // press
-			/*if (game_state == START) {
-				game_state = PLAYING;
-			}*/
+			if (UGameManager::GetInstance().GameState() == START) {
+				UGameManager::GetInstance().GameState(ONGAME);
+			}
 			break;
 		case GLUT_UP: // release
 
